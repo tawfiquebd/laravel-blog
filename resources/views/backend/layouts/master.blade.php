@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
 
     <title>@yield('title')</title>
@@ -80,7 +81,14 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="nav-link btn btn-primary"  href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}</a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
@@ -95,6 +103,15 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers : {
+            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+    })
+
+    baseUrl = {!! json_encode(url('/')) !!}
+</script>
 
 @yield('scripts')
 
