@@ -14,7 +14,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Categories</h6>
-            <a href="" class="float-right btn btn-success">Add Category</a>
+            <a href="" class="float-right btn btn-success" data-toggle="modal" data-target="#addCategoryModal">Add Category</a>
+
         </div>
         <div class="card-body">
             The styling for this basic card example is created by using default Bootstrap
@@ -23,6 +24,8 @@
         </div>
     </div>
 
+
+    @include('backend.partials.categoryModal')
 
 @endsection
 

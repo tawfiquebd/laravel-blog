@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CategoryController;
 
 
 //Route::get('/', function () {
@@ -32,10 +32,12 @@ Route::get('/blog-details', function() {
 
 
 // Backend
-Route::get('/dashboard', function() {
-    return view('backend.dashboard');
+Route::group(['middleware' => 'auth'], function() {
+
+    Route::get('/dashboard', function() {
+        return view('backend.dashboard');
+    });
+
+    Route::get('/categories', [CategoryController::class, 'index']);
 });
 
-Route::get('/categories', function() {
-    return view('backend.categories');
-});
