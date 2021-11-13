@@ -1,4 +1,4 @@
-@extends('backend.layout.master')
+@extends('backend.layouts.master')
 
 @section('title', 'Blog - Dashboard')
 

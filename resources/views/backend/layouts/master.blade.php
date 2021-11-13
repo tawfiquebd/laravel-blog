@@ -29,7 +29,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    @include('backend.layout.sidebar')
+    @include('backend.layouts.sidebar')
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -38,7 +38,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            @include('backend.layout.topbar')
+            @include('backend.layouts.topbar')
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
@@ -53,7 +53,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        @include('backend.layout.footer')
+        @include('backend.layouts.footer')
 
     </div>
     <!-- End of Content Wrapper -->
