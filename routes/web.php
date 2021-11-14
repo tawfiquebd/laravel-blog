@@ -44,5 +44,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/getAllCategories', [CategoryController::class, 'getAllCategories']);
     Route::get('/getCategory/{id}', [CategoryController::class, 'getCategory']);
     Route::post('/updateCategory', [CategoryController::class, 'updateCategory']);
+    Route::post('/deleteCategory/{id}', [CategoryController::class, 'deleteCategory']);
 });
 

@@ -23,7 +23,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ url('/categories') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fab fa-cuttlefish"></i>
             <span>Categories</span></a>
     </li>
 
