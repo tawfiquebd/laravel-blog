@@ -18,9 +18,19 @@
 
         </div>
         <div class="card-body">
-            The styling for this basic card example is created by using default Bootstrap
-            utility classes. By using utility classes, the style of the card component can be
-            easily modified with no need for any custom CSS!
+            <table class="table table-striped table-bordered w-100" id="categories">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Updated At</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+
+            </table>
         </div>
     </div>
 

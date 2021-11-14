@@ -40,5 +40,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/add-category', [CategoryController::class, 'create']);
+    Route::get('/getAllCategories', [CategoryController::class, 'getAllCategories']);
 });
 

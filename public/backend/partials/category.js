@@ -1,4 +1,43 @@
 $(document).ready(function () {
+
+    var table = $('#categories').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        autoWidth: true,
+        order: [0, 'asc'],
+        "ajax" : {
+            'url' : baseUrl+'/getAllCategories',
+            'type': 'GET',
+        },
+        columns: [
+            {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'updated_at', name: 'updated_at'},
+            {data: 'action', name: 'action', orderable: false, searchable:false},
+            {data: 'action1', name: 'action1', orderable: false, searchable:false},
+        ],
+
+        "columnDefs" : [{
+            "render": function (data, type, row, meta)
+            {
+                return `<a href="#" class="btn btn-primary btn-sm editCategory" id="${row.id}"> Edit </a> `
+            },
+            "targets" : 4
+        },
+        {
+            "render": function (data, type, row, meta)
+            {
+                return `<a href="#" class="btn btn-danger btn-sm deleteCategory" id="${row.id}"> Delete </a> `
+            },
+            "targets" : 5
+        },
+        ]
+
+    });
+
+
     $('#addCategory').submit(function(event) {
         event.preventDefault();
         // let categoryName = document.getElementById('category_name').value;

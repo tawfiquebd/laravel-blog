@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     @yield('styles')
 </head>
@@ -105,14 +106,17 @@
 <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
 <script src="{{ asset('backend/js/sweetalert2.min.js') }}"></script>
 <script type="text/javascript">
-    // $.ajaxSetup({
-    //     headers : {
-    //         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // })
+    $.ajaxSetup({
+        headers : {
+            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+    })
 
     baseUrl = {!! json_encode(url('/')) !!}
 </script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
 
 @yield('scripts')
 
