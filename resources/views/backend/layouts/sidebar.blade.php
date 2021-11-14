@@ -35,6 +35,14 @@
             <span>Tags</span></a>
     </li>
 
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/blogs') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Blogs</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

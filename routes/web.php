@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
-
+use App\Http\Controllers\BlogController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -54,6 +54,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/getTag/{id}', [TagController::class, 'getTag']);
     Route::post('/updateTag', [TagController::class, 'updateTag']);
     Route::post('/deleteTag/{id}', [TagController::class, 'deleteTag']);
+
+    // Blog Crud
+    Route::get('/blogs', [BlogController::class, 'index']);
+    Route::get('/createBlog', [BlogController::class, 'createBlogView']);
 
 });
 
