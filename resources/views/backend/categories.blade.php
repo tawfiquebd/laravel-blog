@@ -31,5 +31,5 @@
 
 
 @section('scripts')
-
+<script type="text/javascript" src="{{ asset('backend/partials/category.js') }}"></script>
 @endsection
