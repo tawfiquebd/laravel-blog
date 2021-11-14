@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 
 
 //Route::get('/', function () {
@@ -45,5 +46,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/getCategory/{id}', [CategoryController::class, 'getCategory']);
     Route::post('/updateCategory', [CategoryController::class, 'updateCategory']);
     Route::post('/deleteCategory/{id}', [CategoryController::class, 'deleteCategory']);
+
+    // Tag Crud
+    Route::get('/tags', [TagController::class, 'index']);
+    Route::post('/addTag', [TagController::class, 'create']);
+    Route::post('/getAllTags', [TagController::class, 'getAllTags']);
+    Route::get('/getTag/{id}', [TagController::class, 'getTag']);
+    Route::post('/updateTag', [TagController::class, 'updateTag']);
+    Route::post('/deleteTag/{id}', [TagController::class, 'deleteTag']);
+
 });
 
