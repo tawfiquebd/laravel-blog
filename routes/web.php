@@ -38,8 +38,11 @@ Route::group(['middleware' => 'auth'], function() {
         return view('backend.dashboard');
     });
 
+    // Category Crud
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/add-category', [CategoryController::class, 'create']);
     Route::get('/getAllCategories', [CategoryController::class, 'getAllCategories']);
+    Route::get('/getCategory/{id}', [CategoryController::class, 'getCategory']);
+    Route::post('/updateCategory', [CategoryController::class, 'updateCategory']);
 });
 

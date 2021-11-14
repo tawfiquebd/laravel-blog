@@ -5,6 +5,7 @@ $(document).ready(function () {
         serverSide: true,
         responsive: true,
         autoWidth: true,
+        pageLength: 10,
         order: [0, 'asc'],
         "ajax" : {
             'url' : baseUrl+'/getAllCategories',
@@ -37,7 +38,7 @@ $(document).ready(function () {
 
     });
 
-
+    // Create category
     $('#addCategory').submit(function(event) {
         event.preventDefault();
         // let categoryName = document.getElementById('category_name').value;
@@ -60,6 +61,7 @@ $(document).ready(function () {
                     title: 'Success',
                     text: 'Category created successfully.',
                 })
+                table.ajax.reload();
             },
             error: function(error) {
                 if(error.status === 422) {
@@ -74,6 +76,78 @@ $(document).ready(function () {
         });
     });
 
+    // Get category for edit
+    $(document).on('click', '.editCategory', function(e) {
+        e.preventDefault();
+       let id = $(this).attr('id');
+       $.ajax({
+           url: baseUrl+'/getCategory/'+id,
+           type: 'GET',
+           process: false,
+           contentType: false,
+           success: function(data) {
+               $('#category_id').val(data.id);
+               $('#edit_category').val(data.name);
+               $('#editCategoryModal').modal('show');
+           },
+           error: function(data, textStatus, xhr) {
+               // sweet alert
+               Swal.fire({
+                   icon: 'error',
+                   title: 'Error',
+                   text: 'Sorry we were unable to find this record.',
+               })
+           },
+       })
+
+    });
+
+    // Update category
+    $('#editCategory').submit(function(e) {
+        e.preventDefault();
+        let form = $('#editCategory')[0];
+        let formData = new FormData(form);
+        $.ajax({
+            url: baseUrl+'/updateCategory',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                onSuccessRemoveEditErrors();
+                $('#editCategoryModal').modal('hide');
+                table.ajax.reload();
+            },
+            error: function(error) {
+                if(error.status === 422) {
+                    refreshEditErrors();
+                    var errors = $.parseJSON(error.responseText);
+                    $.each(errors.errors, function(key, value) {
+                        $('#'+key).addClass('is-invalid');
+                        $('#'+ key +'_help').text(value[0]);
+                    })
+                }
+            }
+        })
+    })
+
+    // On success remove error - edit category
+    function onSuccessRemoveEditErrors() {
+        $('#edit_category').removeClass('is-invalid');
+        $('#edit_category').val('');
+        $('#edit_category_help').text('');
+    }
+
+    function refreshEditErrors() {
+        $('#edit_category').removeClass('is-invalid');
+        $('#edit_category_help').text('');
+    }
+
+    $('#editCategoryModal').on('hidden.bs.modal', function() {
+        onSuccessRemoveEditErrors();
+    })
+
+    // On success remove error - add category
     function onSuccessRemoveErrors() {
         $('#category_name').removeClass('is-invalid');
         $('#category_name').val('');
