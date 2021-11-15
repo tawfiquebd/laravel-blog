@@ -14,26 +14,6 @@ use App\Models\Tag;
 //});
 
 
-// Testing Route
-//Route::get('/blogTags', function() {
-//    $blog = Blog::find(1);
-////    dd($blog->tags);
-//
-//    foreach ($blog->tags as $tag) {
-//        echo $tag->name . "<br />";
-//    }
-//
-//});
-//
-//Route::get('/tagBlogs', function() {
-//    $tag = Tag::find(2);
-////    dd($tag->blogs);
-//    foreach ($tag->blogs as $blog) {
-//        echo $blog->title . "<br />";
-//    }
-//
-//});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -83,6 +63,7 @@ Route::group(['middleware' => 'auth'], function() {
     // Blog Crud
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/createBlog', [BlogController::class, 'createBlogView']);
+    Route::post('/blogCreate', [BlogController::class, 'create']);
 
 });
 
