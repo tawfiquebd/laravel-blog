@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Blog;
+use Str;
+use Yajra\DataTables\DataTables;
 
 class BlogController extends Controller
 {
@@ -23,6 +26,40 @@ class BlogController extends Controller
         return view('backend.createBlog', compact('categories', 'tags'));
     }
 
+//    Get all blogs
+    public function getAllBlogs() {
+        $blogs = Blog::all();
+
+        return Datatables::of($blogs)
+            ->editColumn('user_id', function ($blog) {
+                return "<span class='badge badge-success badge-pill'>".$blog->user->name."</span>";
+            })
+            ->editColumn('category_id', function ($blog) {
+                return "<span class='badge badge-dark badge-pill'>".$blog->category->name."</span>";
+            })
+//            ->addColumn('id', function (Blog $blog) {
+//                return $blog->tags->map(function($tag) {
+//                    return "<span class='badge badge-info badge-pill'>".$tag->name."</span>";
+//                })->implode('&nbsp;');
+//            })
+            ->editColumn('short_description', function ($blog) {
+                return Str::words($blog->short_description, 4, '...');
+            })
+            ->editColumn('active', function ($blog) {
+                if($blog->active == 1) {
+                    return "<span class='badge badge-success badge-pill'>". "Active" ."</span>";
+                }
+                else{
+                    return "<span class='badge badge-dark badge-pill'>". "Waiting Approval" ."</span>";
+                }
+            })
+            ->editColumn('description', function ($blog) {
+                return Str::words($blog->description, 6, '...');
+            })
+            ->rawColumns(['user_id', 'category_id', 'id', 'description', 'active'])
+            ->make(true);
+
+    }
 
 //    Create blog
     public function create(Request $request) {
@@ -54,7 +91,7 @@ class BlogController extends Controller
 
         $blog->tags()->attach($request->tags);
 
-        return redirect()->back()->with('success', 'Successfull.');
+        return redirect()->back()->with('success', 'Successful.');
     }
 
     public function validateBlog($request) {

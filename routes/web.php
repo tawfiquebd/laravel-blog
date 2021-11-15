@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/createBlog', [BlogController::class, 'createBlogView']);
     Route::post('/blogCreate', [BlogController::class, 'create']);
+    Route::post('/getAllBlogs', [BlogController::class, 'getAllBlogs']);
 
 });
 

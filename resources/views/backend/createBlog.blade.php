@@ -158,5 +158,21 @@
             .catch( error => {
                 console.error( error );
             } );
+
+
+        // Success Swal
+        let success = "{{ session('success') ?? '' }}";
+        setTimeout(function() {
+            if(success !== '') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Blog created successfully.',
+
+                });
+            }
+        },500);
+
+
     </script>
 @endsection
