@@ -10,4 +10,10 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'slug'];
+
+    // Tag has many Blogs
+    public function blogs() {
+        return $this->belongsToMany('App\Models\Blog');
+    }
+
 }

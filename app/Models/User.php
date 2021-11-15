@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Tag has many Blogs
+    public function blogs() {
+        return $this->hasMany('App\Models\Blog');
+    }
+
 }

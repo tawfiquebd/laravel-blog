@@ -10,4 +10,10 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'slug'];
+
+    // Category has many Blogs
+    public function blogs() {
+        return $this->hasMany('App\Models\Blog');
+    }
+
 }

@@ -4,9 +4,34 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\BlogController;
+use App\Models\User;
+use App\Models\Blog;
+use App\Models\Category;
+use App\Models\Tag;
 
 //Route::get('/', function () {
 //    return view('welcome');
+//});
+
+
+// Testing Route
+//Route::get('/blogTags', function() {
+//    $blog = Blog::find(1);
+////    dd($blog->tags);
+//
+//    foreach ($blog->tags as $tag) {
+//        echo $tag->name . "<br />";
+//    }
+//
+//});
+//
+//Route::get('/tagBlogs', function() {
+//    $tag = Tag::find(2);
+////    dd($tag->blogs);
+//    foreach ($tag->blogs as $blog) {
+//        echo $blog->title . "<br />";
+//    }
+//
 //});
 
 Auth::routes();
