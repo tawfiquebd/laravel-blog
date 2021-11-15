@@ -110,4 +110,18 @@ class BlogController extends Controller
         return $request;
     }
 
+    // Return Edit blog view
+    public function editBlogView($id) {
+        $categories = Category::all();
+        $tags = Tag::all();
+        $blog = Blog::find($id);
+
+        return view('backend.editBlog', compact('categories', 'tags', 'blog'));
+    }
+
+    // Update blog
+    public function updateBlog(Request $request) {
+        dd($request->all());
+    }
+
 }
