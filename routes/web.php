@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Http\Controllers\FrontendController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -20,9 +21,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Frontend
-Route::get('/', function() {
-    return view('frontend.blog');
-});
+
+Route::get('/', [FrontendController::class, 'index']);
 
 Route::get('/about', function() {
     return view('frontend.about');
