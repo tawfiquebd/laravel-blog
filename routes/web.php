@@ -9,6 +9,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\BackendController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -32,6 +33,11 @@ Route::get('/about', function() {
 Route::get('/contact', function() {
     return view('frontend.contact');
 });
+
+
+// User Dashboard
+Route::get('user/dashboard', [BackendController::class, 'userDashboard']);
+Route::get('user/createBlog', [BackendController::class, 'createBlog']);
 
 
 // Backend
