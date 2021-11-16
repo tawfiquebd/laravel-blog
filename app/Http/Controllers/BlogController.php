@@ -10,6 +10,7 @@ use App\Models\Tag;
 use App\Models\Blog;
 use Str;
 use Yajra\DataTables\DataTables;
+use Response;
 
 class BlogController extends Controller
 {
@@ -194,6 +195,23 @@ class BlogController extends Controller
     public function deleteImage($path, $image) {
         if(file_exists(public_path().$path.$image)) {
             unlink(public_path().$path.$image);
+        }
+    }
+
+    // Delete blog post
+    public function deleteBlog($id) {
+        $blog = Blog::findOrFail($id);
+
+        if($blog) {
+            $path = '/images/blogImages/';
+            $image = $blog->image;
+            $this->deleteImage($path, $image);
+            $blog->delete();
+
+            return "Success";
+        }
+        else {
+            return Response::json(['error' => 'Not Found'], 404);
         }
     }
 

@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/getAllBlogs', [BlogController::class, 'getAllBlogs']);
     Route::get('/editBlog/{id}', [BlogController::class, 'editBlogView']);
     Route::post('/blogUpdate', [BlogController::class, 'updateBlog']);
+    Route::post('/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
 
 });
 
