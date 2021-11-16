@@ -36,6 +36,8 @@
                     <form action="{{url('/blogUpdate')}}" method="POST" enctype="multipart/form-data">
                         @csrf
 
+                        <input type="hidden" name="blog_id" value="{{ $blog->id ?? '' }}">
+
                         <div class="form-row">
                             <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <label for="title" class="ml-1">Blog Title</label>
@@ -174,7 +176,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Blog created successfully.',
+                    text: 'Blog updated successfully.',
 
                 });
             }

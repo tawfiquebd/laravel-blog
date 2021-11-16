@@ -121,7 +121,80 @@ class BlogController extends Controller
 
     // Update blog
     public function updateBlog(Request $request) {
-        dd($request->all());
+        $blog = Blog::findOrFail($request->blog_id);
+
+        $this->updateBlogValidation($request);
+
+        $active = $request->active == 'on' ? 1 : 0;
+
+        $storeImage = $blog->image; // old image from db
+
+        // if user upload a new image
+        if($request->has('image')) {
+            $path = "/images/blogImages/";
+            $image = $blog->image;
+            $this->deleteImage($path, $image);
+
+            $uploadedImage = $request->file('image');
+            $imageWithExt = $uploadedImage->getClientOriginalName();
+            $imageName = pathinfo($imageWithExt, PATHINFO_FILENAME);
+            $imageExt = $uploadedImage->getClientOriginalExtension();
+            $storeImage = $imageName . time() . "." .$imageExt;
+            $request->image->move(public_path('/images/blogImages'), $storeImage);
+        }
+
+        $blog->title = $request->title;
+        $blog->url = $request->url;
+        $blog->category_id = $request->category;
+        $blog->image = $storeImage;
+        $blog->image_alt = $request->image_alt;
+        $blog->meta = $request->meta;
+        $blog->short_description = $request->short_description;
+        $blog->description = $request->description;
+        $blog->active = $active;
+
+        $blog->save();
+        $blog->tags()->sync($request->tags);
+        return redirect()->back()->with('success', 'Successful');
+    }
+
+    // Update blog validation
+    public function updateBlogValidation($request) {
+        if($request->has('image')) {
+
+            $request->validate([
+                'title' => 'required|min:3|max:255',
+                'url' => 'required|min:3|max:255|unique:blogs,url,'.$request->blog_id,
+                'category' => 'required',
+                'tags' => 'required',
+                'image' => 'required|mimes:jpeg,jpg,png,bmp,gif|max:2000',
+                'image_alt' => 'required|min:3|max:255',
+                'meta' => 'required|min:3|max:255',
+                'short_description' => 'required|min:3|max:500',
+                'description' => 'required|min:10',
+            ]);
+
+        }
+        else {
+            $request->validate([
+                'title' => 'required|min:3|max:255',
+                'url' => 'required|min:3|max:255|unique:blogs,url,'.$request->blog_id,
+                'category' => 'required',
+                'tags' => 'required',
+                'image_alt' => 'required|min:3|max:255',
+                'meta' => 'required|min:3|max:255',
+                'short_description' => 'required|min:3|max:500',
+                'description' => 'required|min:10',
+            ]);
+        }
+        return $request;
+    }
+
+    // Delete image
+    public function deleteImage($path, $image) {
+        if(file_exists(public_path().$path.$image)) {
+            unlink(public_path().$path.$image);
+        }
     }
 
 }
