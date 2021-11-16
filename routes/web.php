@@ -23,6 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Frontend
 
 Route::get('/', [FrontendController::class, 'index']);
+Route::get('/blog/{url}', [FrontendController::class, 'blogDetails']);
 
 Route::get('/about', function() {
     return view('frontend.about');
@@ -30,10 +31,6 @@ Route::get('/about', function() {
 
 Route::get('/contact', function() {
     return view('frontend.contact');
-});
-
-Route::get('/blog-details', function() {
-    return view('frontend.blog-details');
 });
 
 

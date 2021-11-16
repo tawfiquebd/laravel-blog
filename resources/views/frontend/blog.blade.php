@@ -28,8 +28,8 @@
             <!-- Post preview-->
             @foreach($blogs as $blog)
             <div class="post-preview">
-                <a href="{{ url('/blog-details') }}">
-                    <h2 class="post-title">{{ Str::limit($blog->title, 50, '...') ?? '' }}</h2>
+                <a href="{{ url('/blog/'.$blog->url) }}">
+                    <h2 class="post-title">{{ Str::words($blog->title, 10, '...') ?? '' }}</h2>
                     <h3 class="post-subtitle">{{ Str::limit($blog->short_description, 100, '...') ?? '' }}</h3>
                 </a>
                 <p class="post-meta">
