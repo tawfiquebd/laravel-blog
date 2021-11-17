@@ -47,4 +47,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Blog');
     }
 
+    // Many to many relation
+    // Roles of a user
+    public function roles() {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
 }

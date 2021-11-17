@@ -33,7 +33,7 @@
             <div class="card shadow mb-4">
 
                 <div class="card-body">
-                    <form action="{{url('/blogCreate')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/user/create')}}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-row">

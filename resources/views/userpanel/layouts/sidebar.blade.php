@@ -23,7 +23,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ url('/') }}">
-            <i class="fab fa-cuttlefish"></i>
+            <i class="far fa-eye"></i>
             <span>View Site</span></a>
     </li>
 
@@ -31,7 +31,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ url('/user/createBlog') }}">
-            <i class="fas fa-tags"></i>
+            <i class="fas fa-plus-circle"></i>
             <span>Create Blog</span></a>
     </li>
 

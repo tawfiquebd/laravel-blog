@@ -8,12 +8,22 @@ use App\Models\User;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Role;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BackendController;
 
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+
+//Testing
+Route::get('/userRole', function() {
+    $role = Role::find(1);
+    foreach ($role->users as $user){
+        echo "User name is ". $user->name;
+    }
+
+});
 
 
 Auth::routes();
@@ -38,6 +48,7 @@ Route::get('/contact', function() {
 // User Dashboard
 Route::get('user/dashboard', [BackendController::class, 'userDashboard']);
 Route::get('user/createBlog', [BackendController::class, 'createBlog']);
+Route::post('/user/create', [BlogController::class, 'create']);
 
 
 // Backend
