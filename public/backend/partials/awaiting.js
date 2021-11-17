@@ -6,7 +6,7 @@ $(document).ready(function () {
         responsive: true,
         autoWidth: true,
         pageLength: 10,
-        order: [0, 'desc'],
+        order: [0, 'asc'],
         "ajax" : {
             'url' : baseUrl+'/getAwaitingApprovalBlogs',
             // if data table has more than 5 columns then use type: POST method and pass data: token
