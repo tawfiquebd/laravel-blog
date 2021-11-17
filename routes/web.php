@@ -45,43 +45,48 @@ Route::get('/contact', function() {
 });
 
 
-// User Dashboard
-Route::get('user/dashboard', [BackendController::class, 'userDashboard']);
-Route::get('user/createBlog', [BackendController::class, 'createBlog']);
-Route::post('/user/create', [BlogController::class, 'create']);
 
 
 // Backend
 Route::group(['middleware' => 'auth'], function() {
 
-    Route::get('/dashboard', function() {
-        return view('backend.dashboard');
+    // User Dashboard
+    Route::get('/user/dashboard', [BackendController::class, 'userDashboard']);
+    Route::get('/user/createBlog', [BackendController::class, 'createBlog']);
+    Route::post('/user/create', [BlogController::class, 'create']);
+
+    Route::group(['middleware' => 'checkrole'], function () {
+
+        Route::get('/dashboard', function () {
+            return view('backend.dashboard');
+        });
+
+        // Category Crud
+        Route::get('/categories', [CategoryController::class, 'index']);
+        Route::post('/add-category', [CategoryController::class, 'create']);
+        Route::get('/getAllCategories', [CategoryController::class, 'getAllCategories']);
+        Route::get('/getCategory/{id}', [CategoryController::class, 'getCategory']);
+        Route::post('/updateCategory', [CategoryController::class, 'updateCategory']);
+        Route::post('/deleteCategory/{id}', [CategoryController::class, 'deleteCategory']);
+
+        // Tag Crud
+        Route::get('/tags', [TagController::class, 'index']);
+        Route::post('/addTag', [TagController::class, 'create']);
+        Route::post('/getAllTags', [TagController::class, 'getAllTags']);
+        Route::get('/getTag/{id}', [TagController::class, 'getTag']);
+        Route::post('/updateTag', [TagController::class, 'updateTag']);
+        Route::post('/deleteTag/{id}', [TagController::class, 'deleteTag']);
+
+        // Blog Crud
+        Route::get('/blogs', [BlogController::class, 'index']);
+        Route::get('/createBlog', [BlogController::class, 'createBlogView']);
+        Route::post('/blogCreate', [BlogController::class, 'create']);
+        Route::post('/getAllBlogs', [BlogController::class, 'getAllBlogs']);
+        Route::get('/editBlog/{id}', [BlogController::class, 'editBlogView']);
+        Route::post('/blogUpdate', [BlogController::class, 'updateBlog']);
+        Route::post('/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
+
     });
-
-    // Category Crud
-    Route::get('/categories', [CategoryController::class, 'index']);
-    Route::post('/add-category', [CategoryController::class, 'create']);
-    Route::get('/getAllCategories', [CategoryController::class, 'getAllCategories']);
-    Route::get('/getCategory/{id}', [CategoryController::class, 'getCategory']);
-    Route::post('/updateCategory', [CategoryController::class, 'updateCategory']);
-    Route::post('/deleteCategory/{id}', [CategoryController::class, 'deleteCategory']);
-
-    // Tag Crud
-    Route::get('/tags', [TagController::class, 'index']);
-    Route::post('/addTag', [TagController::class, 'create']);
-    Route::post('/getAllTags', [TagController::class, 'getAllTags']);
-    Route::get('/getTag/{id}', [TagController::class, 'getTag']);
-    Route::post('/updateTag', [TagController::class, 'updateTag']);
-    Route::post('/deleteTag/{id}', [TagController::class, 'deleteTag']);
-
-    // Blog Crud
-    Route::get('/blogs', [BlogController::class, 'index']);
-    Route::get('/createBlog', [BlogController::class, 'createBlogView']);
-    Route::post('/blogCreate', [BlogController::class, 'create']);
-    Route::post('/getAllBlogs', [BlogController::class, 'getAllBlogs']);
-    Route::get('/editBlog/{id}', [BlogController::class, 'editBlogView']);
-    Route::post('/blogUpdate', [BlogController::class, 'updateBlog']);
-    Route::post('/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
 
 });
 

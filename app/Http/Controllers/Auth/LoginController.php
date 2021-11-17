@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -43,4 +44,18 @@ class LoginController extends Controller
     {
         return view('customAuth.login');
     }
+
+    // Check Role and Redirect user Accordingly
+    protected function authenticated(Request $request, $user)
+    {
+        foreach ($user->roles as $role) {
+            if($role->id == 1) {
+                return redirect('/dashboard');
+            }
+            else {
+                return redirect('/user/dashboard');
+            }
+        }
+    }
+
 }
