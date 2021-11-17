@@ -16,15 +16,6 @@ use App\Http\Controllers\BackendController;
 //    return view('welcome');
 //});
 
-//Testing
-Route::get('/userRole', function() {
-    $role = Role::find(1);
-    foreach ($role->users as $user){
-        echo "User name is ". $user->name;
-    }
-
-});
-
 
 Auth::routes();
 
@@ -32,7 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Frontend
-
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/blog/{url}', [FrontendController::class, 'blogDetails']);
 
@@ -85,6 +75,12 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/editBlog/{id}', [BlogController::class, 'editBlogView']);
         Route::post('/blogUpdate', [BlogController::class, 'updateBlog']);
         Route::post('/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
+
+        // Awaiting Approval Blogs Admin
+        Route::get('/awaitingApproval', [BlogController::class, 'awaitingApproval']);
+        Route::post('/getAwaitingApprovalBlogs', [BlogController::class, 'getAwaitingApprovalBlogs']);
+        Route::post('/approveBlog/{id}', [BlogController::class, 'approveBlog']);
+
 
     });
 
