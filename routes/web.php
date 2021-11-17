@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function() {
     // User awaiting blogs
     Route::get('/user/awaitingBlogs', [BlogController::class, 'userAwaitingBlogs']);
     Route::post('/user/getAwaitingUserBlogs', [BlogController::class, 'getAwaitingUserBlogs']);
+    Route::get('/user/editBlog/{id}', [BlogController::class, 'editBlogViewUser']);
+    Route::post('/user/blogUpdate', [BlogController::class, 'updateBlog']);
     Route::post('/user/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
 
     Route::group(['middleware' => 'checkrole'], function () {

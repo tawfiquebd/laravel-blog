@@ -1,4 +1,4 @@
-@extends('backend.layouts.master')
+@extends('userpanel.layouts.master')
 
 @section('title', 'Blog - Edit Blog')
 
@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <h1 class="h3 mb-4 text-gray-800">Edit Blog <a href="{{ url('/blogs') }}" class="btn btn-dark float-right">Return To Blogs</a> </h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit Blog </h1>
 
     @if(count($errors) != 0)
         @if(count($errors) == 1)
@@ -33,7 +33,7 @@
             <div class="card shadow mb-4">
 
                 <div class="card-body">
-                    <form action="{{url('/blogUpdate')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/user/blogUpdate')}}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <input type="hidden" name="blog_id" value="{{ $blog->id ?? '' }}">
@@ -75,11 +75,11 @@
                                 <select class="form-control tags" multiple name="tags[]" id="tags[]">
                                     @foreach($tags as $tag)
                                         <option
-                                        @foreach($blog->tags as $bt)
+                                            @foreach($blog->tags as $bt)
                                             @if($bt->id == $tag->id)
                                             selected
                                             @endif
-                                        @endforeach
+                                            @endforeach
                                             value="{{ $tag->id }}">{{ $tag->name }}
                                         </option>
                                     @endforeach
@@ -132,11 +132,6 @@
                                     <small class="text-danger ml-1" >{{ $errors->first('description') }}</small>
                                 @endif
                             </div>
-                        </div>
-
-                        <div class="form-check mb-2">
-                            <input type="checkbox" name="active" id="active" class="form-check-input" {{ $blog->active == 1 ? 'checked' : '' }}>
-                            <label for="active" class="form-check-label">Publish Blog</label>
                         </div>
 
                         <button type="submit" class="btn btn-success float-right">Update</button>

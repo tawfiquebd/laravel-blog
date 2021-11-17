@@ -113,11 +113,16 @@ class BlogController extends Controller
 
     // Return Edit blog view
     public function editBlogView($id) {
-        $categories = Category::all();
-        $tags = Tag::all();
         $blog = Blog::find($id);
+        if($blog) {
+            $categories = Category::all();
+            $tags = Tag::all();
 
-        return view('backend.editBlog', compact('categories', 'tags', 'blog'));
+            return view('backend.editBlog', compact('categories', 'tags', 'blog'));
+        }
+        else {
+            return abort(404);
+        }
     }
 
     // Update blog
@@ -299,5 +304,22 @@ class BlogController extends Controller
             ->rawColumns(['user_id', 'category_id', 'id', 'description', 'active'])
             ->make(true);
     }
+
+    // Return Edit blog view for user
+    public function editBlogViewUser($id) {
+        $blog = Blog::find($id);
+
+        if($blog && $blog->user->id == Auth::user()->id){
+            $categories = Category::all();
+            $tags = Tag::all();
+
+            return view('userpanel.editBlog', compact('categories', 'tags', 'blog'));
+        }
+        else{
+            return abort(404);
+        }
+
+    }
+
 
 }

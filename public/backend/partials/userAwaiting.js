@@ -39,7 +39,7 @@ $(document).ready(function () {
             {
                 "render": function (data, type, row, meta)
                 {
-                    return `<a href="${baseUrl}/editBlog/${row.id}" class="btn btn-primary btn-sm "> <i class="fas fa-pencil-alt"></i> </a> `
+                    return `<a href="${baseUrl}/user/editBlog/${row.id}" class="btn btn-primary btn-sm "> <i class="fas fa-pencil-alt"></i> </a> `
                 },
                 "targets" :8
             },
