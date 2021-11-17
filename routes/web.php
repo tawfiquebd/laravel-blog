@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/user/editBlog/{id}', [BlogController::class, 'editBlogViewUser']);
     Route::post('/user/blogUpdate', [BlogController::class, 'updateBlog']);
     Route::post('/user/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
+    Route::get('/user/approvedBlogs', [BlogController::class, 'approvedBlogs']);
+    Route::post('/user/getUserApprovedBlogs', [BlogController::class, 'getUserApprovedBlogs']);
 
     Route::group(['middleware' => 'checkrole'], function () {
 

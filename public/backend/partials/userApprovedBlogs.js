@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
-    var table = $('#awaiting').DataTable({
+    var table = $('#approved').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
         autoWidth: true,
         pageLength: 10,
-        order: [0, 'asc'],
+        order: [0, 'desc'],
         "ajax" : {
-            'url' : baseUrl+'/user/getAwaitingUserBlogs',
+            'url' : baseUrl+'/user/getUserApprovedBlogs',
             // if data table has more than 5 columns then use type: POST method and pass data: token
             'type': 'POST',
             'data': {
@@ -24,7 +24,6 @@ $(document).ready(function () {
             {data: 'short_description', name: 'short_description'},
             {data: 'active', name: 'active'},
             {data: 'description', name: 'description'},
-            {data: 'action', name: 'action', orderable: false, searchable:false},
             {data: 'action1', name: 'action1', orderable: false, searchable:false},
         ],
 
@@ -39,16 +38,9 @@ $(document).ready(function () {
             {
                 "render": function (data, type, row, meta)
                 {
-                    return `<a href="${baseUrl}/user/editBlog/${row.id}" class="btn btn-primary btn-sm "> <i class="fas fa-pencil-alt"></i> </a> `
-                },
-                "targets" :8
-            },
-            {
-                "render": function (data, type, row, meta)
-                {
                     return `<a href="#" class="btn btn-danger btn-sm deleteBlog" id="${row.id}">  <i class="far fa-trash-alt"></i>  </a> `
                 },
-                "targets" : 9
+                "targets" : 8
             },
         ]
 

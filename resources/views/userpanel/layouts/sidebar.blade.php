@@ -45,6 +45,14 @@
 
     <hr class="sidebar-divider">
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/user/approvedBlogs') }}">
+            <i class="fas fa-user-check"></i>
+            <span>Approved Blogs</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+
 {{--    <li class="nav-item">--}}
 {{--        <a class="nav-link" href="{{ url('/blogs') }}">--}}
 {{--            <i class="fas fa-fw fa-table"></i>--}}

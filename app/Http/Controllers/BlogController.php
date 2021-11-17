@@ -321,5 +321,39 @@ class BlogController extends Controller
 
     }
 
+    // User Approved Blogs View
+    public function approvedBlogs() {
+        return view('userpanel.approvedBlogs');
+    }
+
+    // Get User Approved Blogs List
+    public function getUserApprovedBlogs() {
+        $user_id = Auth::user()->id;
+        $blogs = Blog::where('user_id', $user_id)->where('active', 1)->get();
+
+        return Datatables::of($blogs)
+            ->editColumn('user_id', function ($blog) {
+                return "<span class='badge badge-success badge-pill'>".$blog->user->name."</span>";
+            })
+            ->editColumn('category_id', function ($blog) {
+                return "<span class='badge badge-dark badge-pill'>".$blog->category->name."</span>";
+            })
+            ->editColumn('short_description', function ($blog) {
+                return Str::words($blog->short_description, 4, '...');
+            })
+            ->editColumn('active', function ($blog) {
+                if($blog->active == 1) {
+                    return "<span class='badge badge-success badge-pill'>". "Active" ."</span>";
+                }
+                else{
+                    return "<span class='badge badge-dark badge-pill'>". "Waiting Approval" ."</span>";
+                }
+            })
+            ->editColumn('description', function ($blog) {
+                return Str::words($blog->description, 6, '...');
+            })
+            ->rawColumns(['user_id', 'category_id', 'id', 'description', 'active'])
+            ->make(true);
+    }
 
 }
