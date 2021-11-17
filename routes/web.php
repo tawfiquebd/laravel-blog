@@ -45,6 +45,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/user/createBlog', [BackendController::class, 'createBlog']);
     Route::post('/user/create', [BlogController::class, 'create']);
 
+    // User awaiting blogs
+    Route::get('/user/awaitingBlogs', [BlogController::class, 'userAwaitingBlogs']);
+    Route::post('/user/getAwaitingUserBlogs', [BlogController::class, 'getAwaitingUserBlogs']);
+    Route::post('/user/deleteBlog/{id}', [BlogController::class, 'deleteBlog']);
+
     Route::group(['middleware' => 'checkrole'], function () {
 
         Route::get('/dashboard', function () {

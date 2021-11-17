@@ -37,6 +37,14 @@
 
     <hr class="sidebar-divider">
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/user/awaitingBlogs') }}">
+            <i class="fas fa-user-clock"></i>
+            <span>Awaiting Approval</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+
 {{--    <li class="nav-item">--}}
 {{--        <a class="nav-link" href="{{ url('/blogs') }}">--}}
 {{--            <i class="fas fa-fw fa-table"></i>--}}
