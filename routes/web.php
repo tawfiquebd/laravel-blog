@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'checkrole'], function () {
 
         Route::get('/dashboard', [BackendController::class, 'dashboard']);
+        Route::get('/cms', [BackendController::class, 'cms']);
 
         // Category Crud
         Route::get('/categories', [CategoryController::class, 'index']);

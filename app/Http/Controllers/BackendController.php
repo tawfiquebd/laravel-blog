@@ -24,6 +24,11 @@ class BackendController extends Controller
         return view('backend.dashboard', compact('categoriesCount', 'tagsCount', 'blogsCount', 'publishedBlogsCount', 'awaitingBlogsCount', 'usersCount'));
     }
 
+    // CMS view
+    public function cms() {
+        return view('backend.cms');
+    }
+
     // User Dashboard
     public function userDashboard() {
         $user_id = Auth::user()->id;

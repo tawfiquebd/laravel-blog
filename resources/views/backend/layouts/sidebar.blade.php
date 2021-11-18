@@ -18,6 +18,22 @@
             <span>Dashboard</span></a>
     </li>
 
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/') }}">
+            <i class="far fa-eye"></i>
+            <span>View Site</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/cms') }}">
+            <i class="fas fa-tasks"></i>
+            <span>CMS</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
