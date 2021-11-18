@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\Blog;
 use Auth;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Datatables;
+use Carbon\Carbon;
+use App\Models\Role;
 
 class BackendController extends Controller
 {
@@ -23,6 +26,26 @@ class BackendController extends Controller
         $usersCount = User::count();
 
         return view('backend.dashboard', compact('categoriesCount', 'tagsCount', 'blogsCount', 'publishedBlogsCount', 'awaitingBlogsCount', 'usersCount'));
+    }
+
+    // Return All users of system view
+    public function allUsersView() {
+        return view('backend.users');
+    }
+
+    // Return All users of our system
+    public function getAllUsers() {
+//        $users = User::all();
+        $users = Role::where('id', 2)->first()->users()->get(); // get all basic-user role uesr
+
+        return Datatables::of($users)
+            ->editColumn('created_at', function ($user) {
+                return $user->created_at ? with(new Carbon($user->created_at))->format('d-M-Y') : '';
+            })
+            ->editColumn('updated_at', function ($user) {
+                return $user->updated_at ? with(new Carbon($user->updated_at))->format('d-M-Y') : '';
+            })
+            ->make(true);
     }
 
     // CMS view

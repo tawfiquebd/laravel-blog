@@ -29,6 +29,14 @@
     <hr class="sidebar-divider">
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ url('/all/users') }}">
+            <i class="fas fa-users"></i>
+            <span>Users</span></a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ url('/cms') }}">
             <i class="fas fa-tasks"></i>
             <span>CMS</span></a>

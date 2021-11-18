@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'checkrole'], function () {
 
         Route::get('/dashboard', [BackendController::class, 'dashboard']);
+        Route::get('/all/users', [BackendController::class, 'allUsersView']);
+        Route::post('/getAllUsers', [BackendController::class, 'getAllUsers']);
         Route::get('/cms', [BackendController::class, 'cms']);
         Route::post('/createOrUpdateAbout', [BackendController::class, 'createOrUpdateAbout']);
         Route::post('/createOrUpdateContact', [BackendController::class, 'createOrUpdateContact']);
