@@ -28,7 +28,9 @@ class BackendController extends Controller
     // CMS view
     public function cms() {
         $about_section = Cms::where('section_name', 'about_section')->first();
-        return view('backend.cms', compact('about_section'));
+        $contact_section = Cms::where('section_name', 'contact_section')->first();
+        $footer_section = Cms::where('section_name', 'footer_section')->first();
+        return view('backend.cms', compact('about_section', 'contact_section', 'footer_section'));
     }
 
     // Create or Update About
@@ -57,6 +59,68 @@ class BackendController extends Controller
             $about->save();
             $msg = 'updated';
             return compact('msg', 'about');
+        }
+
+
+    }
+
+    // Create or Update Contact
+    public function createOrUpdateContact(Request $request) {
+        $request->validate([
+            'contact_heading' => 'required|min:3|max:255',
+            'contact_short_description' => 'required|min:3|max:255',
+            'contact_description' => 'required|min:3'
+        ]);
+
+        if(empty($request->contact_section_name)) {
+            $contact = Cms::create([
+                'section_name' => "contact_section",
+                'contact_heading' => $request->contact_heading,
+                'contact_short_description' => $request->contact_short_description,
+                'contact_description' => $request->contact_description
+            ]);
+            $msg = 'created';
+            return compact('msg', 'contact');
+        }
+        else {
+            $contact = Cms::where('section_name', 'contact_section')->first();
+            $contact->contact_heading = $request->contact_heading;
+            $contact->contact_short_description = $request->contact_short_description;
+            $contact->contact_description = $request->contact_description;
+            $contact->save();
+            $msg = 'updated';
+            return compact('msg', 'contact');
+        }
+
+
+    }
+
+    // Create or Update Footer
+    public function createOrUpdateFooter(Request $request) {
+        $request->validate([
+            'twitter' => 'required|min:3|max:255',
+            'facebook' => 'required|min:3|max:255',
+            'instagram' => 'required|min:3|max:255'
+        ]);
+
+        if(empty($request->footer_section_name)) {
+            $footer = Cms::create([
+                'section_name' => "footer_section",
+                'twitter' => $request->twitter,
+                'facebook' => $request->facebook,
+                'instagram' => $request->instagram
+            ]);
+            $msg = 'created';
+            return compact('msg', 'footer');
+        }
+        else {
+            $footer = Cms::where('section_name', 'footer_section')->first();
+            $footer->twitter = $request->twitter;
+            $footer->facebook = $request->facebook;
+            $footer->instagram = $request->instagram;
+            $footer->save();
+            $msg = 'updated';
+            return compact('msg', 'footer');
         }
 
 

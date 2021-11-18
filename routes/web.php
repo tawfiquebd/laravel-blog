@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/dashboard', [BackendController::class, 'dashboard']);
         Route::get('/cms', [BackendController::class, 'cms']);
         Route::post('/createOrUpdateAbout', [BackendController::class, 'createOrUpdateAbout']);
+        Route::post('/createOrUpdateContact', [BackendController::class, 'createOrUpdateContact']);
+        Route::post('/createOrUpdateFooter', [BackendController::class, 'createOrUpdateFooter']);
 
         // Category Crud
         Route::get('/categories', [CategoryController::class, 'index']);
