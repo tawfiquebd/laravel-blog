@@ -20,37 +20,39 @@
         <div class="collapse " id="aboutPage">
             <div class="card-body">
 
-                <form action="{{url('/blogCreate')}}" method="POST" enctype="multipart/form-data">
+                <form action="" id="aboutCms" method="POST" enctype="multipart/form-data">
                     @csrf
+
+                    <input type="hidden" name="about_section_name" id="about_section_name" value="{{$about_section->section_name ?? ''}}">
 
                     <div class="form-row">
                         <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
                             <label for="title" class="ml-1">About Heading</label>
-                            <input type="text" name="about_heading" id="about_heading" class="form-control" value="{{ old('about_heading') }}" placeholder="About Heading" >
-                            @if($errors->has('about_heading'))
-                                <small class="text-danger ml-1" >{{ $errors->first('about_heading') }}</small>
-                            @endif
+                            <input type="text" name="about_heading" id="about_heading" class="form-control" value="{{ $about_section->about_heading ?? ''  }}" placeholder="About Heading" >
+
+                                <small id="about_heading_help" class="text-danger ml-1" >{{ $errors->first('about_heading') }}</small>
+
                         </div>
 
                         <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
                             <label for="url" class="ml-1">About Short Description</label>
-                            <input type="text" name="about_short_description" id="about_short_description" class="form-control" value="{{ old('about_short_description') }}" placeholder="About Short Description" >
-                            @if($errors->has('about_short_description'))
-                                <small class="text-danger ml-1" >{{ $errors->first('about_short_description') }}</small>
-                            @endif
+                            <input type="text" name="about_short_description" id="about_short_description" class="form-control" value="{{ $about_section->about_short_description ?? '' }}" placeholder="About Short Description" >
+
+                                <small id="about_short_description_help" class="text-danger ml-1" >{{ $errors->first('about_short_description') }}</small>
+
                         </div>
 
                         <div class="form-group col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <label for="title" class="ml-1">Description</label>
-                            <textarea name="about_description" id="about_description" class="form-control" rows="4"> {{ old('about_description') }} </textarea>
-                            @if($errors->has('about_description'))
-                                <small class="text-danger ml-1" >{{ $errors->first('about_description') }}</small>
-                            @endif
+                            <textarea name="about_description" id="about_description" class="form-control" rows="4"> {{ $about_section->about_description ?? '' }} </textarea>
+
+                                <small id="about_description_help" class="text-danger ml-1" >{{ $errors->first('about_description') }}</small>
+
                         </div>
-
-                        <button type="submit" class="btn btn-success float-right">Create</button>
-
                     </div>
+
+                    <button type="submit" class="btn btn-success">Update</button>
+
                 </form>
             </div>
         </div>
@@ -92,10 +94,10 @@
                                 <small class="text-danger ml-1" >{{ $errors->first('contact_description') }}</small>
                             @endif
                         </div>
-
-                        <button type="submit" class="btn btn-success float-right">Create</button>
-
                     </div>
+
+                    <button type="submit" class="btn btn-success">Create</button>
+
                 </form>
             </div>
         </div>
@@ -136,10 +138,10 @@
                                 <small class="text-danger ml-1" >{{ $errors->first('instagram') }}</small>
                             @endif
                         </div>
-
                     </div>
 
                     <button type="submit" class="btn btn-success ">Create</button>
+
                 </form>
             </div>
         </div>
@@ -150,5 +152,5 @@
 
 
 @section('scripts')
-{{--    <script type="text/javascript" src="{{ asset('backend/partials/tag.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('backend/partials/about.js') }}"></script>
 @endsection

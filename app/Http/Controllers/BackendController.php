@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Cms;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Blog;
@@ -26,7 +27,39 @@ class BackendController extends Controller
 
     // CMS view
     public function cms() {
-        return view('backend.cms');
+        $about_section = Cms::where('section_name', 'about_section')->first();
+        return view('backend.cms', compact('about_section'));
+    }
+
+    // Create or Update About
+    public function createOrUpdateAbout(Request $request) {
+        $request->validate([
+            'about_heading' => 'required|min:3|max:255',
+            'about_short_description' => 'required|min:3|max:255',
+            'about_description' => 'required|min:3'
+        ]);
+
+        if(empty($request->about_section_name)) {
+            $about = Cms::create([
+                'section_name' => "about_section",
+                'about_heading' => $request->about_heading,
+                'about_short_description' => $request->about_short_description,
+                'about_description' => $request->about_description
+            ]);
+            $msg = 'created';
+            return compact('msg', 'about');
+        }
+        else {
+            $about = Cms::where('section_name', 'about_section')->first();
+            $about->about_heading = $request->about_heading;
+            $about->about_short_description = $request->about_short_description;
+            $about->about_description = $request->about_description;
+            $about->save();
+            $msg = 'updated';
+            return compact('msg', 'about');
+        }
+
+
     }
 
     // User Dashboard

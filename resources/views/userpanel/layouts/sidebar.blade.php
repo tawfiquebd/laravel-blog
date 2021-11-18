@@ -22,7 +22,7 @@
     <hr class="sidebar-divider">
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('/') }}">
+        <a target="_blank" class="nav-link" href="{{ url('/') }}">
             <i class="far fa-eye"></i>
             <span>View Site</span></a>
     </li>
