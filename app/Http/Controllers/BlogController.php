@@ -11,9 +11,13 @@ use App\Models\Blog;
 use Str;
 use Yajra\DataTables\DataTables;
 use Response;
+use App\Traits\MyTrait;
 
 class BlogController extends Controller
 {
+
+    use MyTrait;
+
 //    Return Blogs listing view
     public function index() {
         return view('backend.blogs');
@@ -197,11 +201,11 @@ class BlogController extends Controller
     }
 
     // Delete image
-    public function deleteImage($path, $image) {
-        if(file_exists(public_path().$path.$image)) {
-            unlink(public_path().$path.$image);
-        }
-    }
+//    public function deleteImage($path, $image) {
+//        if(file_exists(public_path().$path.$image)) {
+//            unlink(public_path().$path.$image);
+//        }
+//    }
 
     // Delete blog post
     public function deleteBlog($id) {

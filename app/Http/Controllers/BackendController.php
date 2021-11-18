@@ -8,13 +8,16 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Blog;
 use Auth;
+use Response;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Datatables;
 use Carbon\Carbon;
 use App\Models\Role;
+use App\Traits\MyTrait;
 
 class BackendController extends Controller
 {
+    use MyTrait;
 
     // Admin Dashboard
     public function dashboard(){
@@ -46,6 +49,28 @@ class BackendController extends Controller
                 return $user->updated_at ? with(new Carbon($user->updated_at))->format('d-M-Y') : '';
             })
             ->make(true);
+    }
+
+    // Delete specific user and the related records
+    public function deleteUser($id) {
+        $user = User::findOrFail($id);
+
+        if($user) {
+            $path = "/images/blogImages/";
+
+            foreach ($user->blogs as $blog) {
+                $image = $blog->image;
+                $this->deleteImage($path, $image);  // common method calling here from trait
+            }
+
+            $user->delete();
+
+            return "Success";
+        }
+        else {
+            return Response::json(['error' => 'Not found'], 404);
+        }
+
     }
 
     // CMS view

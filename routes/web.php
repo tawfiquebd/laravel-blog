@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/dashboard', [BackendController::class, 'dashboard']);
         Route::get('/all/users', [BackendController::class, 'allUsersView']);
         Route::post('/getAllUsers', [BackendController::class, 'getAllUsers']);
+        Route::get('/deleteUser/{id}', [BackendController::class, 'deleteUser']);
         Route::get('/cms', [BackendController::class, 'cms']);
         Route::post('/createOrUpdateAbout', [BackendController::class, 'createOrUpdateAbout']);
         Route::post('/createOrUpdateContact', [BackendController::class, 'createOrUpdateContact']);

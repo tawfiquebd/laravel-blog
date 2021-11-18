@@ -181,10 +181,6 @@ $(document).ready(function () {
             }
         })
 
-
-
-
-
     })
 
     // On success remove error - edit category
