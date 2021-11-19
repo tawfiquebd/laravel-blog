@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Cms;
+use App\Models\Message;
+use Illuminate\Support\Str;
 
 class FrontendController extends Controller
 {
@@ -40,5 +42,21 @@ class FrontendController extends Controller
         return view('frontend.contact', compact('contact', 'links'));
     }
 
+    // Send contact message
+    public function createContactMessage(Request $request) {
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email',
+            'message' => 'required|min:3',
+        ]);
+
+        $message = Message::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
+
+        return "Success";
+    }
 
 }

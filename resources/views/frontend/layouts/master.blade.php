@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="@yield('meta')" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('frontend/assets/favicon.ico') }}" />
     <!-- Font Awesome icons (free version)-->
@@ -30,10 +31,22 @@
 @include('frontend.layouts.footer')
 
 <!-- Bootstrap core JS-->
+<script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="{{ asset('frontend/js/scripts.js') }}"></script>
+
 @yield('scripts')
 
+<script src="{{ asset('backend/js/sweetalert2.min.js') }}"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers : {
+            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+    })
+
+    baseUrl = {!! json_encode(url('/')) !!}
+</script>
 </body>
 </html>

@@ -27,7 +27,7 @@ Route::get('/', [FrontendController::class, 'index']);
 Route::get('/blog/{url}', [FrontendController::class, 'blogDetails']);
 Route::get('/about-us', [FrontendController::class, 'aboutUs']);
 Route::get('/contact-us', [FrontendController::class, 'contactUs']);
-
+Route::post('/createContactMessage', [FrontendController::class, 'createContactMessage']);
 
 
 // Backend
