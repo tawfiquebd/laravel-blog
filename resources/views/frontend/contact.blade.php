@@ -15,8 +15,8 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="page-heading">
-                        <h1>Contact Me</h1>
-                        <span class="subheading">Have questions? I have answers.</span>
+                        <h1>{{ $contact->contact_heading ?? '' }}</h1>
+                        <span class="subheading">{{ $contact->contact_short_description ?? '' }}</span>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+                    <p> {{ $contact->contact_description ?? '' }} </p>
                     <div class="my-5">
                         <!-- * * * * * * * * * * * * * * *-->
                         <!-- * * SB Forms Contact Form * *-->

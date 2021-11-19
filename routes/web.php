@@ -25,15 +25,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Frontend
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/blog/{url}', [FrontendController::class, 'blogDetails']);
-
-Route::get('/about', function() {
-    return view('frontend.about');
-});
-
-Route::get('/contact', function() {
-    return view('frontend.contact');
-});
-
+Route::get('/about-us', [FrontendController::class, 'aboutUs']);
+Route::get('/contact-us', [FrontendController::class, 'contactUs']);
 
 
 
