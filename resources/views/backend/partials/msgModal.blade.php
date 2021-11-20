@@ -1,7 +1,7 @@
 
 <!-- View Contact Message -->
 <div class="modal fade" id="msgModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="msgForm">
                 @csrf
@@ -14,17 +14,17 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" class="form-control" id="name" value="">
+                        <input type="text" name="name" class="form-control" id="name" value="" readonly>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" name="email" class="form-control" id="email" value="">
+                        <input type="text" name="email" class="form-control" id="email" value="" readonly>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Name</label>
-                        <textarea class="form-control" name="message" id="message" ></textarea>
+                        <label for="message">Message</label>
+                        <textarea class="form-control" name="message" id="message" rows="6" readonly></textarea>
                     </div>
                 </div>
 

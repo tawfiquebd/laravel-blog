@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Blog;
 use Auth;
 use Response;
+use Str;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Datatables;
 use Carbon\Carbon;
@@ -200,9 +201,12 @@ class BackendController extends Controller
 
     // Return all contact messages
     public function getAllMessage() {
-        $messages = Message::all();
+        $messages = Message::latest()->get();
 
         return Datatables::of($messages)
+            ->editColumn('message', function ($message) {
+                return Str::words($message->message, 15, '...');
+            })
             ->editColumn('created_at', function ($message) {
                 return $message->created_at ? with(new Carbon($message->created_at))->format('d-M-Y') : '';
             })
@@ -212,4 +216,30 @@ class BackendController extends Controller
             ->make(true);
     }
 
+    // Get specific contact message
+    public function getMessage($id) {
+        $msg = Message::findOrFail($id);
+
+        if($msg) {
+            return $msg;
+        }
+        else {
+            return Response::json(['error' => 'Message not found'], 404);
+        }
+    }
+
+    // Delete specific contact message
+    public function deleteMessage($id) {
+        $msg = Message::findOrFail($id);
+
+        if($msg) {
+            $msg->delete();
+            return "Success";
+        }
+        else {
+            return Response::json(['error' => 'Message not found'], 404);
+        }
+    }
+
 }
+

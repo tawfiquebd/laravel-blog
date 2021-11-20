@@ -91,6 +91,8 @@ Route::group(['middleware' => 'auth'], function() {
         // Contact Messages Route
         Route::get('/contact-message', [BackendController::class, 'contactMsgView']);
         Route::post('/getAllMessage', [BackendController::class, 'getAllMessage']);
+        Route::get('/getMessage/{id}', [BackendController::class, 'getMessage']);
+        Route::post('/deleteMessage/{id}', [BackendController::class, 'deleteMessage']);
 
     });
 
