@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cms;
+use App\Models\Message;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Blog;
@@ -190,6 +191,25 @@ class BackendController extends Controller
         $tags = Tag::all();
 
         return view('userpanel.createBlog', compact('categories', 'tags'));
+    }
+
+    // Return contact Messages view
+    public function contactMsgView() {
+        return view('backend.messages');
+    }
+
+    // Return all contact messages
+    public function getAllMessage() {
+        $messages = Message::all();
+
+        return Datatables::of($messages)
+            ->editColumn('created_at', function ($message) {
+                return $message->created_at ? with(new Carbon($message->created_at))->format('d-M-Y') : '';
+            })
+            ->editColumn('updated_at', function ($message) {
+                return $message->updated_at ? with(new Carbon($message->updated_at))->format('d-M-Y') : '';
+            })
+            ->make(true);
     }
 
 }

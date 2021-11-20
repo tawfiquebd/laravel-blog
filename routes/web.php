@@ -88,6 +88,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/getAwaitingApprovalBlogs', [BlogController::class, 'getAwaitingApprovalBlogs']);
         Route::post('/approveBlog/{id}', [BlogController::class, 'approveBlog']);
 
+        // Contact Messages Route
+        Route::get('/contact-message', [BackendController::class, 'contactMsgView']);
+        Route::post('/getAllMessage', [BackendController::class, 'getAllMessage']);
 
     });
 
