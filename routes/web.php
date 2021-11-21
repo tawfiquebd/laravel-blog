@@ -24,6 +24,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Frontend
 Route::get('/', [FrontendController::class, 'index']);
+Route::get('/category/{slug}', [FrontendController::class, 'filterCategory']);
+Route::get('/tag/{slug}', [FrontendController::class, 'filterTag']);
 Route::get('/blog/{url}', [FrontendController::class, 'blogDetails']);
 Route::get('/about-us', [FrontendController::class, 'aboutUs']);
 Route::get('/contact-us', [FrontendController::class, 'contactUs']);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Cms;
@@ -12,10 +14,15 @@ class FrontendController extends Controller
 {
     // Home page view
     public function index() {
-        $blogs = Blog::where('active', 1)->latest()->paginate(3);
+        $blogs = Blog::where('active', 1)->latest()->paginate(6);
 
         $links = Cms::where('section_name', 'footer_section')->first();
-        return view('frontend.blog', compact('blogs', 'links'));
+
+        $categories = Category::all();
+
+        $tags = Tag::all();
+
+        return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags'));
     }
 
     // Blog details page
@@ -57,6 +64,49 @@ class FrontendController extends Controller
         ]);
 
         return "Success";
+    }
+
+    // Filter Blogs by Category
+    public function filterCategory($slug) {
+        $findCategory = Category::where('slug', $slug)->first();
+
+        if($findCategory) {
+            $blogs = Blog::where('category_id', $findCategory->id)->where('active', 1)->latest()->paginate(6);
+
+            $links = Cms::where('section_name', 'footer_section')->first();
+
+            $categories = Category::all();
+
+            $tags = Tag::all();
+
+            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags'));
+        }
+        else {
+            abort(404);
+        }
+    }
+
+    // Filter Blogs by Tags
+    public function filterTag($slug) {
+        $findTag = Tag::where('slug', $slug)->first();
+
+        if($findTag) {
+            $blogs = Blog::whereHas('tags', function($q) use ($slug) {
+                $q->where('slug', $slug);
+            })->where('active', 1)->latest()->paginate(6);
+
+
+            $links = Cms::where('section_name', 'footer_section')->first();
+
+            $categories = Category::all();
+
+            $tags = Tag::all();
+
+            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags'));
+        }
+        else {
+            abort(404);
+        }
     }
 
 }

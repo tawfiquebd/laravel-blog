@@ -31,7 +31,9 @@
                     Apply Filter <i class="fas fa-filter"></i>
                 </div>
                 <div class="card-body">
+                    <hr>
                     <h4 class="card-title">Search Blog</h4>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 mx-auto">
                             <form action="" method="POST" class="form-group">
@@ -46,24 +48,28 @@
                     <hr>
 
                     <h4 class="card-title">By Categories</h4>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 mx-auto">
-                            <h5><a href="" class="mt-2 mb-2">1st</a></h5>
-                            <h5><a href="" class="mt-2 mb-2">2nd</a></h5>
-                            <h5><a href="" class="mt-2 mb-2">3rd</a></h5>
-                            <h5><a href="" class="mt-2 mb-2">4th</a></h5>
+                            @if($categories->isNotEmpty())
+                                @foreach($categories as $category)
+                            <h6><a href="{{ url('/category/'.$category->slug) }}" class="mt-2 mb-2">{{ $category->name }}</a></h6>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
 
                     <hr>
 
                     <h4 class="card-title">By Tags</h4>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 mx-auto">
-                            <h5><a href="" class="mt-2 mb-2">1st</a></h5>
-                            <h5><a href="" class="mt-2 mb-2">2nd</a></h5>
-                            <h5><a href="" class="mt-2 mb-2">3rd</a></h5>
-                            <h5><a href="" class="mt-2 mb-2">4th</a></h5>
+                            @if($tags->isNotEmpty())
+                                @foreach($tags as $tag)
+                                    <h6><a href="{{ url('/tag/'.$tag->slug) }}" class="mt-2 mb-2">{{ $tag->name }}</a></h6>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
 
