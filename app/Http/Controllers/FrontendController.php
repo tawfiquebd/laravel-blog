@@ -73,13 +73,15 @@ class FrontendController extends Controller
         if($findCategory) {
             $blogs = Blog::where('category_id', $findCategory->id)->where('active', 1)->latest()->paginate(6);
 
+            $categoryName = $findCategory->name;
+
             $links = Cms::where('section_name', 'footer_section')->first();
 
             $categories = Category::all();
 
             $tags = Tag::all();
 
-            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags'));
+            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'categoryName'));
         }
         else {
             abort(404);
@@ -95,6 +97,7 @@ class FrontendController extends Controller
                 $q->where('slug', $slug);
             })->where('active', 1)->latest()->paginate(6);
 
+            $tagName = $findTag->name;
 
             $links = Cms::where('section_name', 'footer_section')->first();
 
@@ -102,11 +105,35 @@ class FrontendController extends Controller
 
             $tags = Tag::all();
 
-            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags'));
+            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'tagName'));
         }
         else {
             abort(404);
         }
+    }
+
+    // Search Blog
+    public function search(Request $request) {
+        $request->validate([
+           'search' => 'required|min:3|max:255',
+        ]);
+
+        $search = $request->search;
+
+        $blogs = Blog::select('*')
+            ->orderBy('id', 'desc')
+            ->where('title', 'like' , '%'.$search.'%')
+            ->orWhere('short_description', 'like' , '%'.$search.'%')
+            ->orWhere('description', 'like' , '%'.$search.'%')
+            ->paginate(6);
+
+        $links = Cms::where('section_name', 'footer_section')->first();
+
+        $categories = Category::all();
+
+        $tags = Tag::all();
+
+        return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'search'));
     }
 
 }

@@ -25,6 +25,8 @@
 <div class="container-fluid px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5">
 
+    @include('frontend.partials.successAndErrors');
+
         <div class="col-md-3 col-lg-3">
             <div class="card text-center mt-custom border-0">
                 <div class="card-header s-header-footer">
@@ -36,10 +38,12 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 mx-auto">
-                            <form action="" method="POST" class="form-group">
+                            <form action="{{ url('/search-blog') }}" method="POST" class="form-group">
                                 @csrf
-                                <input type="text" name="search" id="search" class="form-control mt-2 mb-2">
-                                <small class="text-danger mt-2 mb-2"></small>
+                                <input type="text" name="search" id="search" class="form-control mt-2 mb-2" value="{{ $search ?? '' }}" placeholder="Search here...">
+                                @if($errors->has('search'))
+                                    <small class="text-danger mt-2 mb-2">{{ $errors->first('search') }}</small>
+                                @endif
                                 <button type="submit" class="btn btn-danger w-100 rounded mt-2 mb-2">Search  <i class="fas fa-search"></i></button>
                             </form>
                         </div>
