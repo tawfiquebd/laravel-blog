@@ -173,7 +173,13 @@ class BackendController extends Controller
             return compact('msg', 'footer');
         }
 
+    }
 
+    // Profile settings for Admins and Basic Users
+    public function profile() {
+        $user = Auth::user();
+
+        return view('backend.profile', compact('user'));
     }
 
     // User Dashboard

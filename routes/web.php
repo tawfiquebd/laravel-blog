@@ -50,6 +50,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/user/approvedBlogs', [BlogController::class, 'approvedBlogs']);
     Route::post('/user/getUserApprovedBlogs', [BlogController::class, 'getUserApprovedBlogs']);
 
+    // Profile settings for Admin and Basic users
+    Route::get('/settings/profile', [BackendController::class, 'profile']);
+
     Route::group(['middleware' => 'checkrole'], function () {
 
         Route::get('/dashboard', [BackendController::class, 'dashboard']);
