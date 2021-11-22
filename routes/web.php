@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Profile settings for Admin and Basic users
     Route::get('/settings/profile', [BackendController::class, 'profile']);
+    Route::post('/settings/profile/update', [BackendController::class, 'updateProfile']);
+    Route::post('/settings/update/password', [BackendController::class, 'updatePassword']);
 
     Route::group(['middleware' => 'checkrole'], function () {
 

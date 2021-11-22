@@ -16,6 +16,7 @@ use Yajra\DataTables\Datatables;
 use Carbon\Carbon;
 use App\Models\Role;
 use App\Traits\MyTrait;
+use Hash;
 
 class BackendController extends Controller
 {
@@ -180,6 +181,43 @@ class BackendController extends Controller
         $user = Auth::user();
 
         return view('backend.profile', compact('user'));
+    }
+
+    // Update username or profile
+    public function updateProfile(Request $request) {
+        $authUser = Auth::user();
+
+        $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$authUser->id],
+        ]);
+
+        $authUser->name = $request->username;
+        $authUser->email = $request->email;
+        $authUser->update();
+
+        return redirect()->back()->with('success', 'Successful');
+    }
+
+    // Update user password
+    public function updatePassword(Request $request) {
+        $authUser = Auth::user();
+
+        $request->validate([
+            'old_password' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required'],
+        ]);
+
+        if(Hash::check($request->old_password, $authUser->password)) {
+            $authUser->password = Hash::make($request->password);
+            $authUser->update();
+            return redirect()->back()->with('success', 'Successful');
+        }
+        else {
+            return redirect()->back()->with('error', 'Old password does not match.');
+        }
+
     }
 
     // User Dashboard
