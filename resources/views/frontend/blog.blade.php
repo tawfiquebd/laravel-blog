@@ -109,6 +109,25 @@
         </div>
 
         <div class="col-md-3 col-lg-3">
+            <hr>
+            <h4 class="card-title">Popular Blogs</h4>
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 mx-auto">
+                    @foreach($allBlogs as $individualBlog)
+                        @foreach($popularBlogs as $popularBlog)
+                            @if($individualBlog->id == $popularBlog->blog_id)
+                                <a href="{{ url('/blog/'.$individualBlog->url) }}">
+                                    <button type="button" class="btn btn-primary mb-1">
+                                        {{ $individualBlog->title ?? ''}} <span class="badge badge-light">{{ $popularBlog->count }}</span>
+                                    </button>
+                                </a>
+                            @endif
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
         </div>
 
     </div>

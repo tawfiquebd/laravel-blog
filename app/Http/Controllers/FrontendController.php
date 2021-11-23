@@ -17,13 +17,21 @@ class FrontendController extends Controller
     public function index() {
         $blogs = Blog::where('active', 1)->latest()->paginate(6);
 
+        $popularBlogs = Visitor::selectRaw('blog_id, count(id) as count')
+            ->groupBy('blog_id')
+            ->orderBy('blog_id', 'desc')
+            ->limit(5)
+            ->get();
+
+        $allBlogs = Blog::orderBy('id', 'desc')->get();
+
         $links = Cms::where('section_name', 'footer_section')->first();
 
         $categories = Category::all();
 
         $tags = Tag::all();
 
-        return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags'));
+        return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'popularBlogs', 'allBlogs'));
     }
 
     // Blog details page
@@ -88,13 +96,21 @@ class FrontendController extends Controller
 
             $categoryName = $findCategory->name;
 
+            $popularBlogs = Visitor::selectRaw('blog_id, count(id) as count')
+                ->groupBy('blog_id')
+                ->orderBy('blog_id', 'desc')
+                ->limit(5)
+                ->get();
+
+            $allBlogs = Blog::orderBy('id', 'desc')->get();
+
             $links = Cms::where('section_name', 'footer_section')->first();
 
             $categories = Category::all();
 
             $tags = Tag::all();
 
-            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'categoryName'));
+            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'categoryName', 'popularBlogs', 'allBlogs'));
         }
         else {
             abort(404);
@@ -112,13 +128,21 @@ class FrontendController extends Controller
 
             $tagName = $findTag->name;
 
+            $popularBlogs = Visitor::selectRaw('blog_id, count(id) as count')
+                ->groupBy('blog_id')
+                ->orderBy('blog_id', 'desc')
+                ->limit(5)
+                ->get();
+
+            $allBlogs = Blog::orderBy('id', 'desc')->get();
+
             $links = Cms::where('section_name', 'footer_section')->first();
 
             $categories = Category::all();
 
             $tags = Tag::all();
 
-            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'tagName'));
+            return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'tagName', 'popularBlogs', 'allBlogs'));
         }
         else {
             abort(404);
@@ -140,13 +164,21 @@ class FrontendController extends Controller
             ->orWhere('description', 'like' , '%'.$search.'%')
             ->paginate(6);
 
+        $popularBlogs = Visitor::selectRaw('blog_id, count(id) as count')
+            ->groupBy('blog_id')
+            ->orderBy('blog_id', 'desc')
+            ->limit(5)
+            ->get();
+
+        $allBlogs = Blog::orderBy('id', 'desc')->get();
+
         $links = Cms::where('section_name', 'footer_section')->first();
 
         $categories = Category::all();
 
         $tags = Tag::all();
 
-        return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'search'));
+        return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'search', 'popularBlogs', 'allBlogs'));
     }
 
     // Insert unique views for blog
