@@ -176,14 +176,59 @@ class BackendController extends Controller
 
     }
 
-    // Profile settings for Admins and Basic Users
+    // Profile settings for Basic Users
+    public function userProfile() {
+        $user = Auth::user();
+
+        return view('userpanel.profile', compact('user'));
+    }
+
+    // Update username or profile for Basic Users
+    public function updateUserProfile(Request $request) {
+        $authUser = Auth::user();
+
+        $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$authUser->id],
+        ]);
+
+        $authUser->name = $request->username;
+        $authUser->email = $request->email;
+        $authUser->update();
+
+        return redirect()->back()->with('success', 'Successful');
+    }
+
+    // Update user password for Basic Users
+    public function updateUserPassword(Request $request) {
+        $authUser = Auth::user();
+
+        $request->validate([
+            'old_password' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required'],
+        ]);
+
+        if(Hash::check($request->old_password, $authUser->password)) {
+            $authUser->password = Hash::make($request->password);
+            $authUser->update();
+            return redirect()->back()->with('success', 'Successful');
+        }
+        else {
+            return redirect()->back()->with('error', 'Old password does not match.');
+        }
+
+    }
+
+
+    // Profile settings for Admins
     public function profile() {
         $user = Auth::user();
 
         return view('backend.profile', compact('user'));
     }
 
-    // Update username or profile
+    // Update username or profile for Admins
     public function updateProfile(Request $request) {
         $authUser = Auth::user();
 
@@ -199,7 +244,7 @@ class BackendController extends Controller
         return redirect()->back()->with('success', 'Successful');
     }
 
-    // Update user password
+    // Update user password for Admins
     public function updatePassword(Request $request) {
         $authUser = Auth::user();
 

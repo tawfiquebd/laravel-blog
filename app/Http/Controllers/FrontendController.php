@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Cms;
@@ -26,11 +27,23 @@ class FrontendController extends Controller
     }
 
     // Blog details page
-    public function blogDetails($url) {
+    public function blogDetails(Request  $request, $url) {
         $blog = Blog::where('url', $url)->first();
 
-        $links = Cms::where('section_name', 'footer_section')->first();
-        return view('frontend.blog-details', compact('blog', 'links'));
+        $ip = $request->ip();
+
+        if($blog) {
+            $this->insertUniqueView($ip, $blog);
+
+            $views = Visitor::where('blog_id', $blog->id)->count();
+
+            $links = Cms::where('section_name', 'footer_section')->first();
+            return view('frontend.blog-details', compact('blog', 'links', 'views'));
+        }
+        else {
+            return abort(404);
+        }
+
     }
 
     // About us page view
@@ -134,6 +147,23 @@ class FrontendController extends Controller
         $tags = Tag::all();
 
         return view('frontend.blog', compact('blogs', 'links', 'categories', 'tags', 'search'));
+    }
+
+    // Insert unique views for blog
+    public function insertUniqueView($ip, $blog) {
+        $checkVisitor = Visitor::where('blog_id', $blog->id)->where('ip', $ip)->get();
+
+        if(count($checkVisitor) > 0) {
+            return true;
+        }
+        else {
+            $uniqueView = Visitor::create([
+                'blog_id' => $blog->id,
+                'ip' => $ip,
+            ]);
+
+            return true;
+        }
     }
 
 }

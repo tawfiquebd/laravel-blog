@@ -25,8 +25,11 @@
                         </span>
                         <span class="meta mb-3"> Tags :
                             @foreach($blog->tags as $tag)
-                            <a href="#" class="badge badge-success"> {{ $tag->name ?? '' }} </a>
+                                <a href="#" class="badge badge-success"> {{ $tag->name ?? '' }} </a>
                             @endforeach
+                        </span>
+                        <span class="meta mb-3"> Unique Views :
+                            <a href="#" class="badge badge-success"> {{ $views ?? '' }} </a>
                         </span>
                         <span class="meta">
                             Posted by

@@ -25,7 +25,7 @@
 <div class="container-fluid px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5">
 
-    @include('frontend.partials.successAndErrors');
+    @include('frontend.partials.successAndErrors')
 
         <div class="col-md-3 col-lg-3">
             <div class="card text-center mt-custom border-0">

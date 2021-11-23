@@ -26,4 +26,9 @@ class Blog extends Model
         return $this->belongsToMany('App\Models\Tag');
     }
 
+    // Blog has many visitors
+    public function visitors() {
+        return $this->hasMany('App\Models\Visitor');
+    }
+
 }

@@ -50,7 +50,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/user/approvedBlogs', [BlogController::class, 'approvedBlogs']);
     Route::post('/user/getUserApprovedBlogs', [BlogController::class, 'getUserApprovedBlogs']);
 
-    // Profile settings for Admin and Basic users
+    // Profile settings for Basic users
+    Route::get('/user/settings/profile', [BackendController::class, 'userProfile']);
+    Route::post('/user/profile/update', [BackendController::class, 'updateUserProfile']);
+    Route::post('/user/update/password', [BackendController::class, 'updateUserPassword']);
+
+    // Profile settings for Admin
     Route::get('/settings/profile', [BackendController::class, 'profile']);
     Route::post('/settings/profile/update', [BackendController::class, 'updateProfile']);
     Route::post('/settings/update/password', [BackendController::class, 'updatePassword']);
