@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Visitor;
 use Auth;
 use Response;
 use Str;
@@ -30,8 +31,11 @@ class BackendController extends Controller
         $publishedBlogsCount = Blog::where('active', 1)->count();
         $awaitingBlogsCount = Blog::where('active', 0)->count();
         $usersCount = User::count();
+        $messagesCount = Message::count();
+        $viewsCount = Visitor::count();
 
-        return view('backend.dashboard', compact('categoriesCount', 'tagsCount', 'blogsCount', 'publishedBlogsCount', 'awaitingBlogsCount', 'usersCount'));
+        return view('backend.dashboard', compact('categoriesCount', 'tagsCount', 'blogsCount',
+            'publishedBlogsCount', 'awaitingBlogsCount', 'usersCount', 'messagesCount', 'viewsCount'));
     }
 
     // Return All users of system view
